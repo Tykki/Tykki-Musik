@@ -1,0 +1,44 @@
+<h1 class="my-3">In Your Area</h1>
+<hr>
+<section class="row">
+  <div class="col">
+    <div class="float-right mt-3">
+      <h5 class="d-inline mr-2">Use GPS?</h5>
+      <button id="usrLoc" class="btn btn-rasied btn-primary text-white"><i class="material-icons">my_location</i> </button>
+    </div>
+
+  </div>
+</section class="row">
+<section class="mb-5" id="mappedContent">
+    <div id="map"></div>
+</section>
+
+<script>
+  var map;
+
+$('#usrLoc').on('click', () => {
+    //   alert('Chat and Chill would like to use your Location.')
+    var userLocation;
+    var geoSuccess = function(position) {
+      userLocation = position;
+      console.log(userLocation)
+      let userPos = { lat: userLocation.coords.latitude, lng: userLocation.coords.longitude }
+      map = new google.maps.Map(document.getElementById('map'), {
+        center: userPos,
+        zoom: 12,
+      });
+      let marker = new google.maps.Marker({position: userPos, title: 'Your Location', map: map})
+    };
+    navigator.geolocation.getCurrentPosition(geoSuccess);
+  })
+
+  function initMap() {
+      let chicago = {lat: 41.8781, lng: -87.6298};
+      map = new google.maps.Map(document.getElementById('map'), {
+      center: chicago,
+      zoom: 12
+    });
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSYO-eW9rwv0Bq-NcaFW7OJzQEzrUv2fc&callback=initMap"
+async defer></script>
