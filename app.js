@@ -116,7 +116,7 @@ $(document).ready(function() {
         $(location.hash).show()        
     }
     
-    var socket = new WebSocket('wss://localhost:8000');
+    var socket = new WebSocket('wss://tykki.github.io/Tykki-Musik/');
     
     socket.onopen = function (event) {
         socket.send("Here's some text that the server is urgently awaiting!"); 
