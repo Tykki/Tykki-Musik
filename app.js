@@ -2,18 +2,18 @@ $(document).ready(function() {
     const navOpts = ['Profile', 'Chat', 'Map', 'Install Me?']
     const srcOpts = ['https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', 'https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js', 'https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js']
     const appName = 'Chat & Listen'
-    let auth = false
+    window.auth = false
     $('.navbar-toggler').hide()
     
-    async function init() {
+    window.init = async function init() {
         // if already logined in, Skip to Profile
         // checkLoginStatus()
         buildScreens()
       window.addEventListener('hashchange', hashHandler, false);
-      if (!auth) {
+      if (!window.auth) {
           location.assign(`#Login`)
           $('#Login').show()
-          console.log(auth)
+          console.log(window.auth)
       } else {
         if (location.hash === '' || location.hash === '#Login') {
             location.hash = '#Profile'
@@ -72,7 +72,7 @@ $(document).ready(function() {
             console.log( "Load was performed." );
         });
         $( "#Profile" ).load( "profile.html", function() {
-            if (auth) {
+            if (window.auth) {
                 console.log('should work')
                 fetch('https://randomuser.me/api/').then(res => res.json()).then(res => {
                     console.log(res)
@@ -81,9 +81,12 @@ $(document).ready(function() {
                     $('#pEmail').text(res.results[0].email)
                     $('#pUName').text(res.results[0].login.username)
                     $('#pAvi').attr('src', res.results[0].picture.large)
-                    $('#welcome').text(`Welcome, ${res.results[0].name.first}`)
-            })
-        }
+            }) 
+        } if (window.fb.log) {
+            $('#welcome').text(`Welcome, ${window.fb.res.name}`)                
+            } else {
+                $('#welcome').text(`Welcome, ${res.results[0].name.first}`)
+            }
             console.log( "Load was performed." );
         });
         $( "#Chat" ).load( "chat.html", function() {
@@ -133,8 +136,8 @@ $(document).ready(function() {
                 console.log(user)
                 if (user.pass === password) {
                     console.log('wining')
-                    auth = true
-                    init()
+                    window.auth = true
+                    window.init()
                 } else {alert('Email or password is not in  database')}
             })
         }
@@ -149,15 +152,15 @@ $(document).ready(function() {
             
         }
         if (location.hash === '#Login') {
-            if (auth) {
+            if (window.auth) {
                 location.replace('#Profile')
             }
-            // console.log(auth)
+            // console.log(window.auth)
         } 
         hideScreens()
         $(location.hash).show()        
     }
-    
-    init()
+    // window.init = init()    
+    window.init()
 
 });
