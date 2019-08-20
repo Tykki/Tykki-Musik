@@ -10,6 +10,10 @@ body{
     height: 100vh;
 }
 
+textarea {
+    width: 90%;
+}
+
 #map {
     height: 69vh;
 }
@@ -17,6 +21,22 @@ body{
 #Profile {
     overflow: overlay;
     overflow-x: hidden;
+}
+
+#Chat {
+    background: rgb(0,0,0);
+    background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(116,28,161,1) 50%, rgba(255,255,255,1) 100%);
+    /* height: 100vh; */
+}
+
+.bg-haze{
+    background-color: rgba(255,255,255,.3);
+    height: inherit;
+    border-radius: 6%;
+}
+
+.avi-thumbnail {
+    border-radius: 50%;
 }
 
 #btnAdd{

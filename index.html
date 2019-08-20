@@ -11,6 +11,7 @@
     <!-- Material Design for Bootstrap CSS -->
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
     <title>Music By Tykki</title>
   </head>
   <body>
@@ -51,7 +52,7 @@
             <div id="Profile" class="content container-fluid px-0 mx-0">
                 
             </div>
-            <div id="Chat" class="content container text-center">
+            <div id="Chat" class="content container-fluid text-center">
 
             </div>
             <div id="Map" class="content container">
@@ -65,22 +66,11 @@
     </div>
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="app.js"></script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"></script>
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"></script>
     <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    <script src="db.js"></script>
+    <script src="app.js"></script>
     <!-- Optional JavaScript -->
-    <!-- <script>
-            var map;
-            function initMap() {
-                let chicago = {lat: 41.8781, lng: -87.6298};
-                map = new google.maps.Map(document.getElementById('map'), {
-                center: chicago,
-                zoom: 12
-              });
-            }
-          </script>
-          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSYO-eW9rwv0Bq-NcaFW7OJzQEzrUv2fc&callback=initMap"
-          async defer></script> -->
   </body>
 </html>
