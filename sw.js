@@ -20,7 +20,6 @@ version = '1.1';
 let cacheName = "Tykki's Musik" + version;
 
 self.addEventListener('install', e => {
-  let timeStamp = Date.now();
   e.waitUntil(
     caches.open(cacheName).then(cache => {
       return cache.addAll([

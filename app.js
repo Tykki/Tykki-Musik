@@ -2,7 +2,7 @@ $(document).ready(function() {
     String.prototype.capitalize = function() {
         return this.charAt(0).toUpperCase() + this.slice(1)
       }
-    const navOpts = ['Profile', 'Chat', 'Map', 'Install Me?', 'Logout']
+    const navOpts = ['Profile', 'Chat', 'Map', 'Logout']
     const srcOpts = ['https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', 'https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js', 'https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js']
     const appName = 'Chat & Listen'
     let auth = false
@@ -31,7 +31,6 @@ $(document).ready(function() {
         } else { $(location.hash).show() }
         $('.navbar-toggler').show()
         setNavOpts()
-        pwaHandler()
 
       }
     }
@@ -49,13 +48,13 @@ $(document).ready(function() {
         for (x of nav) {
             console.log(x.children)
             for (y of navOpts) {
-                if (y === 'Install Me?') {
-                    $(x).append(`
-                    <li class="nav-item">
-                        <a id="" class="nav-link btnAdd" href="#Profile">${y}</a>
-                    </li>
-                    `)    
-                } else
+                // if (y === 'Install Me?') {
+                //     $(x).append(`
+                //     <li class="nav-item">
+                //         <a id="btnAdd" class="nav-link" href="#Profile">${y}</a>
+                //     </li>
+                //     `)    
+                // } else
                 if (y === 'Logout') {
                     $(x).append(`
                     <li class="nav-item">
@@ -248,41 +247,34 @@ $(document).ready(function() {
     }
 
     
-    function pwaHandler() {
-        let deferredPrompt;
-      let btnAdd = $('.btnAdd')
-      console.log(btnAdd)
-      window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent Chrome 67 and earlier from automatically showing the prompt
-      e.preventDefault();
-      // Stash the event so it can be triggered later.
-      deferredPrompt = e;
-      // Update UI notify the user they can add to home screen
-      for (let x of btnAdd) {
-          x.style.display = 'block';
-          
-      }
-    });
-    for (let x of btnAdd) {
-        x.addEventListener('click', (e) => {
-          // hide our user interface that shows our A2HS button
-          x.style.display = 'none';
-          // Show the prompt
-          deferredPrompt.prompt();
-          // Wait for the user to respond to the prompt
-          deferredPrompt.userChoice
-            .then((choiceResult) => {
-              if (choiceResult.outcome === 'accepted') {
-                console.log('User accepted the A2HS prompt');
-              } else {
-                console.log('User dismissed the A2HS prompt');
-              }
-              deferredPrompt = null;
-            });
-        });
-
-    }    
-    }    
+    // PWA Prompt Handling
+    let deferredPrompt;
+    let btnAdd = document.querySelector('#btnAdd')
+    window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Update UI notify the user they can add to home screen
+    btnAdd.style.display = 'block';
+  });
+  
+  btnAdd.addEventListener('click', (e) => {
+    // hide our user interface that shows our A2HS button
+    btnAdd.style.display = 'none';
+    // Show the prompt
+    deferredPrompt.prompt();
+    // Wait for the user to respond to the prompt
+    deferredPrompt.userChoice
+      .then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the A2HS prompt');
+        } else {
+          console.log('User dismissed the A2HS prompt');
+        }
+        deferredPrompt = null;
+      });
+  });
 
     init()
 
