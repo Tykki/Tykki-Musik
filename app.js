@@ -6,16 +6,15 @@ $(document).ready(function() {
     const srcOpts = ['https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js', 'https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js', 'https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js']
     const appName = 'Chat & Listen'
     let auth = false
-    window.fb = {log: null, res: null}
     $('.navbar-toggler').hide()
     
     init = async function init(user=null, fb=false, logout=false) {
         // if already logined in, Skip to Profile
         // checkLoginStatus()
-        console.log(fb)
+        // console.log(fb)
         if (fb) {
             auth = true
-            console.log(user)
+            // console.log(user)
         }
         if (!logout) {
             buildScreens(user, fb)
@@ -28,7 +27,7 @@ $(document).ready(function() {
         location.assign(`#Login`)
         hideScreens()
         $('#Login').show()
-        console.log(auth)
+        // console.log(auth)
       } else {
         if (location.hash === '' || location.hash === '#Login') {
             location.hash = '#Profile'
@@ -43,7 +42,7 @@ $(document).ready(function() {
     function setNavOpts() {
         let nav = $('nav ul')
         let brand = $('.navbar-brand')
-        console.log(brand)
+        // console.log(brand)
         for (x of brand) {
             $(x).text(appName)
         }
@@ -51,7 +50,7 @@ $(document).ready(function() {
             return $('.nav-item').show()
         }
         for (x of nav) {
-            console.log(x.children)
+            // console.log(x.children)
             for (y of navOpts) {
                 // if (y === 'Install Me?') {
                 //     $(x).append(`
@@ -80,7 +79,7 @@ $(document).ready(function() {
         })
         $('.logout').on('click', () => {
             auth = false
-            console.log(auth)
+            // console.log(auth)
             init(null, false, true)
         })   
     }
@@ -92,18 +91,18 @@ $(document).ready(function() {
     }
     
     function buildScreens(user, fb) {
-        console.log(user, fb)
+        // console.log(user, fb)
         if (!user) {
         $( "#Login" ).load( "views/login.html", function() {
             $("#loginForm").submit((e) => {
                 e.preventDefault()
                 let user = $('#userInput').val()
                 let password = $('#passwordInput').val()
-                console.log(user, password)
+                // console.log(user, password)
                 login(user, password)
                 $("#loginForm")[0].reset()
               });
-            console.log( "Load was performed." );
+            // console.log( "Load was performed." );
         });
     } else
          {
@@ -129,7 +128,7 @@ $(document).ready(function() {
                 $('#fwBtn').on('click', () => {
                     alert('This Function is for Premium Members only')
                 })
-    console.log( "Load was performed." );
+    // console.log( "Load was performed." );
             });
             $( "#Chat" ).load( "views/chat.html", function() {
                 // let users = []
@@ -160,7 +159,7 @@ $(document).ready(function() {
                         `)
                     }
                 })
-    console.log( "Load was performed." );
+    // console.log( "Load was performed." );
               });
               $( "#Map" ).load( "views/map.html", function() {
                 db.users.each(x => {
@@ -187,7 +186,7 @@ $(document).ready(function() {
                     }
                     $(`#userL${x.id}`).on('click', () => {
                         let userPos = { lat: parseInt(x.location.coordinates.latitude), lng: parseInt(x.location.coordinates.longitude) }
-                        console.log(userPos)
+                        // console.log(userPos)
                         let map = new google.maps.Map(document.getElementById('map'), {
                             center: userPos,
                             zoom: 12,
@@ -195,13 +194,13 @@ $(document).ready(function() {
                         let marker = new google.maps.Marker({position: userPos, title: `${x.login.username}`, map: map})
                     })
                 })
-    console.log( "Load was performed." );
+    // console.log( "Load was performed." );
             });
     
             // due to .loadviews/() not being able to run scripts, I added a loop to re-add them for loaded in pages. (Due to time constraints this was not opitimized to better approach.)
     
             // for (let [i, x] of srcOpts.entries()) {
-            //     // console.log(i, x)
+                // console.log(i, x)
             //     let script = document.createElement('script')
             //     script.src = x
             //     document.body.appendChild(script)
@@ -216,26 +215,27 @@ $(document).ready(function() {
 
     function login(user, password) {
         if (!user || !password) {
-            // return alert('please enter user name and password')
-            fetch('https://randomuser.me/api/').then(res => res.json()).then(res => {
-                auth = true    
-                init(res.results[0])
-            })
+            return alert('please enter user name and password')
+            // fetch('https://randomuser.me/api/').then(res => res.json()).then(res => {
+            //     auth = true    
+            //     init(res.results[0])
+            // })
         } 
         else {
             db.users.where('login.username').equalsIgnoreCase(user).each(user => {
-                console.log(user)
+                // console.log(user)
                 if (user.login.password === password) {
-                    console.log('wining')
+                    // console.log('wining')
                     auth = true
-                    init(user)
-                } else {alert('User Name or password is not in  database')}
+                    return init(user)
+                }
             })
+            return alert('User Name or password is not in  database')
         }
     }
     
     function hashHandler() {
-        console.log('The hash has changed!')
+        // console.log('The hash has changed!')
         if (location.hash === '') {
             return
         }
@@ -286,9 +286,9 @@ $(document).ready(function() {
     deferredPrompt.userChoice
       .then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
-          console.log('User accepted the A2HS prompt');
+        //   console.log('User accepted the A2HS prompt');
         } else {
-          console.log('User dismissed the A2HS prompt');
+        //   console.log('User dismissed the A2HS prompt');
         }
         deferredPrompt = null;
       });
