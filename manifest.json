@@ -1,22 +1,22 @@
 {
     "short_name": "Musik",
-    "name": "Tykki's Musil",
+    "name": "Tykki's Musik",
     "icons": [
       {
-        "src": "/192x192.png",
+        "src": "/Tykki-Musik/192x192.png",
         "type": "image/png",
         "sizes": "192x192"
       },
       {
-        "src": "/512x512.png",
+        "src": "/Tykki-Musik/512x512.png",
         "type": "image/png",
         "sizes": "512x512"
       }
     ],
     "prefer_related_applications": false,
-    "start_url": "/index.html",
+    "start_url": "/Tykki-Musik/index.html",
     "background_color": "#363636",
     "display": "standalone",
-    "scope": "/",
+    "scope": "/Tykki-Musik/",
     "theme_color": "#9933CC"
   }

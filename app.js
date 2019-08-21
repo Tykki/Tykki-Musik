@@ -31,6 +31,7 @@ $(document).ready(function() {
         } else { $(location.hash).show() }
         $('.navbar-toggler').show()
         setNavOpts()
+        pwaHandler()
 
       }
     }
@@ -51,14 +52,14 @@ $(document).ready(function() {
                 if (y === 'Install Me?') {
                     $(x).append(`
                     <li class="nav-item">
-                        <a id="btnAdd" class="nav-link" href="#">${y}</a>
+                        <a id="" class="nav-link btnAdd" href="#Profile">${y}</a>
                     </li>
                     `)    
                 } else
                 if (y === 'Logout') {
                     $(x).append(`
                     <li class="nav-item">
-                        <a id="logout" class="nav-link" href="#Login">${y}</a>
+                        <a id="" class="nav-link logout" href="#Login">${y}</a>
                     </li>
                     `) 
                 } else {
@@ -73,10 +74,10 @@ $(document).ready(function() {
         $('.navbar-nav .nav-link').on('click', () => {
             $('.navbar-toggler').click()
         })
-        $('#logout').on('click', () => {
+        $('.logout').on('click', () => {
             auth = false
             console.log(auth)
-            init(null, false, logout)
+            init(null, false, true)
         })   
     }
 
@@ -97,7 +98,6 @@ $(document).ready(function() {
                 login(user, password)
                 $("#loginForm")[0].reset()
               });
-            $('body').bootstrapMaterialDesign()
             console.log( "Load was performed." );
         });
     } else
@@ -115,7 +115,6 @@ $(document).ready(function() {
                 $('#fwBtn').on('click', () => {
                     alert('This Function is for Premium Members only')
                 })
-    $('body').bootstrapMaterialDesign()
     console.log( "Load was performed." );
             });
             $( "#Chat" ).load( "views/chat.html", function() {
@@ -147,7 +146,6 @@ $(document).ready(function() {
                         `)
                     }
                 })
-    $('body').bootstrapMaterialDesign()
     console.log( "Load was performed." );
               });
               $( "#Map" ).load( "views/map.html", function() {
@@ -183,7 +181,6 @@ $(document).ready(function() {
                         let marker = new google.maps.Marker({position: userPos, title: `${x.login.username}`, map: map})
                     })
                 })
-    $('body').bootstrapMaterialDesign()
     console.log( "Load was performed." );
             });
     
@@ -249,7 +246,44 @@ $(document).ready(function() {
         hideScreens()
         $(location.hash).show()        
     }
-    // init = init()    
+
+    
+    function pwaHandler() {
+        let deferredPrompt;
+      let btnAdd = $('.btnAdd')
+      console.log(btnAdd)
+      window.addEventListener('beforeinstallprompt', (e) => {
+      // Prevent Chrome 67 and earlier from automatically showing the prompt
+      e.preventDefault();
+      // Stash the event so it can be triggered later.
+      deferredPrompt = e;
+      // Update UI notify the user they can add to home screen
+      for (let x of btnAdd) {
+          x.style.display = 'block';
+          
+      }
+    });
+    for (let x of btnAdd) {
+        x.addEventListener('click', (e) => {
+          // hide our user interface that shows our A2HS button
+          x.style.display = 'none';
+          // Show the prompt
+          deferredPrompt.prompt();
+          // Wait for the user to respond to the prompt
+          deferredPrompt.userChoice
+            .then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the A2HS prompt');
+              } else {
+                console.log('User dismissed the A2HS prompt');
+              }
+              deferredPrompt = null;
+            });
+        });
+
+    }    
+    }    
+
     init()
 
 });
