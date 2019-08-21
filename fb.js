@@ -49,7 +49,6 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
         window.auth = true
-        window.fb = {log: null, res: null}
         window.fb.log = true
         window.fb.res = response
         window.init()

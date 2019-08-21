@@ -7,7 +7,7 @@ body{
 }
 
 #Login {
-    height: 100vh;
+    /* height: 100vh; */
 }
 
 textarea {
@@ -101,4 +101,8 @@ ul.nav.nav-tabs.bg-dark {
 
 .shadow-lg {
     box-shadow: 0 1rem 3rem rgba(0,0,0,.175)!important;
+}
+
+.sink {
+    box-shadow: inset 0 .5rem 1rem rgba(0,0,0,.15)!important;    
 }
