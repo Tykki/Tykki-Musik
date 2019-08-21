@@ -228,9 +228,8 @@ $(document).ready(function() {
                     // console.log('wining')
                     auth = true
                     return init(user)
-                }
+                } else {return alert('User Name or password is not in  database')}
             })
-            return alert('User Name or password is not in  database')
         }
     }
     
