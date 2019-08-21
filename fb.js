@@ -44,7 +44,7 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
  
   function testAPI() {                      // Testing Graph API after login.  See statusChangeCallback() for when this call is made.
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me', function(response) {
+    FB.api('/me?fields=id,first_name,last_name,picture,email,name', function(response) {
       console.log('Successful login for: ' + response.name, response);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';

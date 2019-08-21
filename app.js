@@ -110,18 +110,17 @@ $(document).ready(function() {
             $( "#Profile" ).load( "views/profile.html", function() {
                 if (fb) {
                     $('#welcome').text(`Welcome, ${user.name}`)
-                    $('#userDets').hide()
-                    $('#fbDets').show()
-                    $('#pAvi').hide()
+                    $('#pFName').text(user.first_name)
+                    $('#pLName').text(user.last_name)
+                    $('#pEmail').text(user.email)
+                    $('#pUName').text(user.name)
+                    $('#pAvi').attr('src', user.picture.data.url)
                 } else if (user) {
-                    $('#fbDets').hide()
-                    $('#userDets').show()
                     $('#welcome').text(`Welcome, ${user.name.first.capitalize()}`)
                     $('#pFName').text(user.name.first.capitalize())
                     $('#pLName').text(user.name.last.capitalize())
                     $('#pEmail').text(user.email)
                     $('#pUName').text(user.login.username.capitalize())
-                    $('#pAvi').show()
                     $('#pAvi').attr('src', user.picture.large)
                 }
                 $('#messBtn').on('click', () => {
