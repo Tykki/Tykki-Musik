@@ -12,6 +12,11 @@ $(document).ready(function() {
     init = async function init(user=null, fb=false, logout=false) {
         // if already logined in, Skip to Profile
         // checkLoginStatus()
+        console.log(fb)
+        if (fb) {
+            auth = true
+            console.log(user)
+        }
         if (!logout) {
             buildScreens(user, fb)
         }
@@ -87,6 +92,7 @@ $(document).ready(function() {
     }
     
     function buildScreens(user, fb) {
+        console.log(user, fb)
         if (!user) {
         $( "#Login" ).load( "views/login.html", function() {
             $("#loginForm").submit((e) => {
@@ -102,12 +108,22 @@ $(document).ready(function() {
     } else
          {
             $( "#Profile" ).load( "views/profile.html", function() {
-                $('#welcome').text(`Welcome, ${user.name.first.capitalize()}`)
-                $('#pFName').text(user.name.first.capitalize())
-                $('#pLName').text(user.name.last.capitalize())
-                $('#pEmail').text(user.email)
-                $('#pUName').text(user.login.username.capitalize())
-                $('#pAvi').attr('src', user.picture.large)
+                if (fb) {
+                    $('#welcome').text(`Welcome, ${user.name}`)
+                    $('#userDets').hide()
+                    $('#fbDets').show()
+                    $('#pAvi').hide()
+                } else if (user) {
+                    $('#fbDets').hide()
+                    $('#userDets').show()
+                    $('#welcome').text(`Welcome, ${user.name.first.capitalize()}`)
+                    $('#pFName').text(user.name.first.capitalize())
+                    $('#pLName').text(user.name.last.capitalize())
+                    $('#pEmail').text(user.email)
+                    $('#pUName').text(user.login.username.capitalize())
+                    $('#pAvi').show()
+                    $('#pAvi').attr('src', user.picture.large)
+                }
                 $('#messBtn').on('click', () => {
                     alert('This Function is for Premium Members only')
                 })
@@ -221,6 +237,9 @@ $(document).ready(function() {
     
     function hashHandler() {
         console.log('The hash has changed!')
+        if (location.hash === '') {
+            return
+        }
         if (location.hash === '#Chat') {
             if (!auth) {
                 location.replace('#Login')
