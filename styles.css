@@ -43,6 +43,10 @@ textarea {
     display: none;
 }
 
+#fbBtn{
+    display: none;
+}
+
 .profile-label {
     font-weight: 500;
 }

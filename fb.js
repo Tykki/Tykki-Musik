@@ -48,11 +48,6 @@ function statusChangeCallback(response) {  // Called with the results from FB.ge
       console.log('Successful login for: ' + response.name, response);
       document.getElementById('status').innerHTML =
         'Thanks for logging in, ' + response.name + '!';
-        // console.log(auth)
-        auth = true
-        console.log(auth)
-        window.fb.log = true
-        window.fb.res = response
         init(response, true, false)
     });
   }

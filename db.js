@@ -10,6 +10,7 @@ fetch('https://randomuser.me/api/?results=6').then(res => res.json()).then(res =
     }
     db.users.bulkPut(res.results).then(() => {
         console.log(res)
+        $('#fbBtn').show()
         db.users.each(user => {
             $('#userList').append(`
             <div class="row">
